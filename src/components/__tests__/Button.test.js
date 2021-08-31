@@ -37,7 +37,7 @@ it("renders a clickable button", () => {
   );
 
   const button = getByText("Clickable");
-
+  
   fireEvent.click(button);
 
   expect(handleClick).toHaveBeenCalledTimes(1);
