@@ -16,6 +16,7 @@ body {
 }
 
 .layout {
+  font-family: $font-family;
   display: flex;
   min-height: 100vh;
 }

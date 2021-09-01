@@ -6,8 +6,9 @@ const InterviewerList = (props) => {
 
 
   const interviewerListItems = props.interviewers.map(i => {
-    const selected = (props.interviewer === i.id ? true : false);
-    return <InterviewerListItem {...i} onClick={props.setInterviewer} selected={selected}/>
+    return (
+      <InterviewerListItem key={i.id} {...i} setInterviewer={props.setInterviewer(i.id)} selected={i.id === props.interviewer}/>
+      );
   });
   
   return (
