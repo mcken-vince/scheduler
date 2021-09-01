@@ -3,11 +3,9 @@ import './InterviewerList.scss';
 import InterviewerListItem from './InterviewerListItem';
 
 const InterviewerList = (props) => {
-
-
   const interviewerListItems = props.interviewers.map(i => {
     return (
-      <InterviewerListItem key={i.id} {...i} setInterviewer={props.setInterviewer(i.id)} selected={i.id === props.interviewer}/>
+      <InterviewerListItem key={i.id} {...i} setInterviewer={event => props.setInterviewer(i.id)} selected={i.id === props.interviewer}/>
       );
   });
   
