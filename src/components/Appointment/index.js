@@ -2,17 +2,14 @@ import React from 'react';
 import './styles.scss';
 import Header from './Header';
 import Show from './Show';
+import Confirm from './Confirm';
+import Empty from './Empty';
+import Error from './Error';
 
 const Appointment = (props) => {
   return (
     <article className="appointment">
-      <Header time={props.time} />
-      <Show 
-        student={props.student} 
-        interviewer={props.interviewer} 
-        onEdit={()=>{}}
-        onDelete={()=>{}}  
-      />
+      
     </article>
   );
 };
