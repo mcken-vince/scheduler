@@ -3,8 +3,6 @@ import './styles.scss';
 import Header from './Header';
 import Show from './Show';
 import Empty from './Empty';
-import { action } from '@storybook/addon-actions/dist/preview';
-
 
 const Appointment = (props) => {
   return (
