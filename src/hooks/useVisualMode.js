@@ -13,10 +13,12 @@ const useVisualMode = (initial) => {
     // make copy of history and remove last item, 
     // then set history to value of copy
     // and set mode to the last item of history
-    const historyCopy = [...history];
-    historyCopy.pop();
-    setHistory(historyCopy);
-    setMode(history[history.length - 2]);
+    if (history.length > 1) {
+      const historyCopy = [...history];
+      historyCopy.pop();
+      setHistory(historyCopy);
+      setMode(history[history.length - 2]);
+    }
   };
 
   return { mode, transition, back };
