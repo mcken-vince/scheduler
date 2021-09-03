@@ -16,13 +16,11 @@ const useVisualMode = (initial) => {
   };
 
   const back = () => {
-    // make copy of history and remove last item, 
+    // make copy of history minus last item 
     // then set history to value of copy
     // and set mode to the last item of history
     if (history.length > 1) {
-      const historyCopy = [...history];
-      historyCopy.pop();
-      setHistory(historyCopy);
+      setHistory(history.slice(0, history.length - 1));
       setMode(history[history.length - 2]);
     }
   };
