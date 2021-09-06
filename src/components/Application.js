@@ -33,12 +33,14 @@ export default function Application(props) {
   };
 
   const cancelInterview = (id) => {
-    // const appointment = state.appointments[id]
-    console.log(id);
-    // const appointments = {
-    //   ...state.appointments,
-    //   [id]: appointment
-    // }
+    const appointment = { ...state.appointments[id] };
+    const appointments = { ...state.appointments, appointment };
+
+
+    return axios.delete(`/api/appointments/${id}`)
+    .then((res) => {
+      setState({ ...state, appointments })
+    })
   };
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
