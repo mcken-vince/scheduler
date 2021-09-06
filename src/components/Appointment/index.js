@@ -18,7 +18,8 @@ const Appointment = (props) => {
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
   const EDIT = "EDIT";
-  const ERROR = "ERROR";
+  const ERROR_SAVE = "ERROR_SAVE";
+  const ERROR_DELETE = "ERROR_DELETE";
 
   
   const { mode, transition, back } = useVisualMode(
@@ -32,14 +33,16 @@ const Appointment = (props) => {
       interviewer
     };
     props.bookInterview(props.id, interview)
-    .then(()=> transition(SHOW));
+    .then(()=> transition(SHOW))
+    .catch((err) => transition(ERROR_SAVE, true));
 
   };
 
   const remove = (id) => {
-    transition(DELETING);
+    transition(DELETING, true);
     props.cancelInterview(id)
-    .then((res) => transition(EMPTY));
+    .then((res) => transition(EMPTY))
+    .catch((err) => transition(ERROR_DELETE, true));
   };
 
   return (
@@ -52,7 +55,8 @@ const Appointment = (props) => {
       {mode === DELETING && (<Status message="Deleting" onComplete={() => transition(EMPTY)} />)}
       {mode === SAVING && (<Status message="Saving" onComplete={() => transition(SHOW)} />)}
       {mode === EDIT && (<Form onCancel={back} onSave={save} interviewers={props.interviewers} interviewer={props.interview.interviewer.id} name={props.interview.student} />)}
-      {mode === ERROR && (<Error onClose={back} />)}
+      {mode === ERROR_SAVE && (<Error message="Server error: could not save appointment" onClose={back} />)}
+      {mode === ERROR_DELETE && (<Error message="Server error: could not delete appointment" onClose={back} />)}
 
     </article>
   );
