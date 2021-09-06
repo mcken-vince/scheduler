@@ -6,6 +6,7 @@ import Empty from './Empty';
 import Form from './Form';
 import Confirm from './Confirm';
 import Status from './Status';
+import Error from './Error';
 
 import useVisualMode from "hooks/useVisualMode";
 
@@ -17,6 +18,7 @@ const Appointment = (props) => {
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
   const EDIT = "EDIT";
+  const ERROR = "ERROR";
 
   
   const { mode, transition, back } = useVisualMode(
@@ -24,14 +26,13 @@ const Appointment = (props) => {
   )
 
   const save = (name, interviewer) => {
-    console.log(name, interviewer);
     transition(SAVING);
     const interview = {
       student: name,
       interviewer
     };
-    props.bookInterview(props.id, interview);
-    transition(SHOW);
+    props.bookInterview(props.id, interview)
+    .then(()=> transition(SHOW));
 
   };
 
@@ -45,6 +46,7 @@ const Appointment = (props) => {
       {mode === DELETING && (<Status message="Deleting" onComplete={() => transition(EMPTY)} />)}
       {mode === SAVING && (<Status message="Saving" onComplete={() => transition(SHOW)} />)}
       {mode === EDIT && (<Form onCancel={back} onSave={save} interviewers={props.interviewers} interviewer={props.interview.interviewer.id} name={props.interview.student} />)}
+      {mode === ERROR && (<Error />)}
 
     </article>
   );

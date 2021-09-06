@@ -16,7 +16,6 @@ export default function Application(props) {
 
   
   const bookInterview = (id, interview) => {
-    console.log("TOP OF bookInterview: ", id, interview);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -27,8 +26,10 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    setState({ ...state, appointments });
-    console.log("BOTTOM OF bookInterview: ", id, interview);
+    return axios.put(`/api/appointments/${id}`, appointment)
+    .then((res) => {
+      setState({ ...state, appointments });
+    })
   };
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
