@@ -15,9 +15,24 @@ export default function Application(props) {
   });
 
   
+  const bookInterview = (id, interview) => {
+    console.log("TOP OF bookInterview: ", id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    setState({ ...state, appointments });
+    console.log("BOTTOM OF bookInterview: ", id, interview);
+  };
+
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const setDay = day => setState(prev => ({ ...prev, day }));
-  // const setDays = days => setState(prev => ({ ...prev, days }));
   
   // runs only on initial startup
   useEffect(() => {
@@ -27,7 +42,6 @@ export default function Application(props) {
       axios.get('/api/interviewers')
     ])
     .then(all => {
-      console.log(all);
       setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
     })
   }, []);
@@ -64,6 +78,7 @@ export default function Application(props) {
             time={appointment.time}
             interview={interview}
             interviewers={getInterviewersForDay(state, state.day)}
+            bookInterview={bookInterview}
           />)
       })}
       </section>

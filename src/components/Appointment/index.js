@@ -23,16 +23,28 @@ const Appointment = (props) => {
     props.interview ? SHOW : EMPTY
   )
 
+  const save = (name, interviewer) => {
+    console.log(name, interviewer);
+    transition(SAVING);
+    const interview = {
+      student: name,
+      interviewer
+    };
+    props.bookInterview(props.id, interview);
+    transition(SHOW);
+
+  };
+
   return (
     <article className="appointment">
       <Header time={props.time} />
       {mode === EMPTY && (<Empty onAdd={() => transition(CREATE)} />)}
       {mode === SHOW && (<Show student={props.interview.student} interviewer={props.interview.interviewer} onEdit={() => transition(EDIT)} onDelete={() => transition(CONFIRM)} />)}
-      {mode === CREATE && (<Form interviewers={props.interviewers} onCancel={back} onSave={() => transition(SAVING)} />)}
+      {mode === CREATE && (<Form interviewers={props.interviewers} onCancel={back} onSave={save} />)}
       {mode === CONFIRM && (<Confirm message="Are you sure you want to delete?" onConfirm={() => transition(DELETING)} onCancel={back} />)}
       {mode === DELETING && (<Status message="Deleting" onComplete={() => transition(EMPTY)} />)}
       {mode === SAVING && (<Status message="Saving" onComplete={() => transition(SHOW)} />)}
-      {mode === EDIT && (<Form onCancel={back} onSave={() => transition(SAVING)} interviewers={props.interviewers} interviewer={props.interview.interviewer.id} name={props.interview.student} />)}
+      {mode === EDIT && (<Form onCancel={back} onSave={save} interviewers={props.interviewers} interviewer={props.interview.interviewer.id} name={props.interview.student} />)}
 
     </article>
   );
