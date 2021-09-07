@@ -21,7 +21,6 @@ const Appointment = (props) => {
   const ERROR_SAVE = "ERROR_SAVE";
   const ERROR_DELETE = "ERROR_DELETE";
 
-  
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   )
@@ -34,15 +33,15 @@ const Appointment = (props) => {
     };
     props.bookInterview(props.id, interview)
     .then(()=> transition(SHOW))
-    .catch((err) => transition(ERROR_SAVE, true));
+    .catch(() => transition(ERROR_SAVE, true));
 
   };
 
   const remove = (id) => {
     transition(DELETING);
     props.cancelInterview(id)
-    .then((res) => transition(EMPTY))
-    .catch((err) => transition(ERROR_DELETE, true));
+    .then(() => transition(EMPTY))
+    .catch(() => transition(ERROR_DELETE, true));
   };
 
   return (

@@ -9,8 +9,6 @@ const useApplicationData = () => {
     interviewers: {}
   });
   
-  const setDay = day => setState(prev => ({ ...prev, day }));
-  
   // runs only on initial startup
   const getData = () => {
     Promise.all([
@@ -24,26 +22,39 @@ const useApplicationData = () => {
     })
   };
   
-
+  const setDay = day => setState(prev => ({ ...prev, day }));
+  
   const bookInterview = (id, interview) => {
     const appointment = { ...state.appointments[id], interview: { ...interview } };
     const appointments = { ...state.appointments, [id]: appointment };
     
     return axios.put(`/api/appointments/${id}`, appointment)
     .then((res) => {
-      setState({ ...state, appointments });
+      setState(prev => ({ ...prev, appointments }));
+      updateSpots(id, appointments);
     })
   };
   
   const cancelInterview = (id) => {
-    const appointment = {...state.appointments[id], interview: null};
-    const appointments = { ...state.appointments, appointment };
-    console.log("APPOINTMENTS: ", appointments);
+    const appointment = { ...state.appointments[id], interview : null };
+    const appointments = { ...state.appointments, [id]: appointment };
 
     return axios.delete(`/api/appointments/${id}`)
-    .then((res) => {
-      setState(prev => ({ ...prev, appointments }))
+    .then(() => {
+      console.log(state);
+      setState(prev => ({ ...prev, appointments }));
+      updateSpots(id, appointments);
     })
+  };
+
+  const updateSpots = (apptId, appointments) => {
+    const dayIndex = state.days.filter((day) => day.appointments.includes(apptId))[0].id - 1;
+    const appts = state.days.filter((day) => day.appointments.includes(apptId))[0].appointments;
+    const spotsRemaining = (5 - appts.filter((appt) => appointments[appt].interview).length);
+    const daysArray = [...state.days];
+    daysArray[dayIndex] = {...daysArray[dayIndex], spots: spotsRemaining};
+    console.log('daysARray:', daysArray);
+    setState(prev => ({ ...prev, days: [...daysArray]}));
   };
 
   // Call getData() ONLY ONCE. Without useEffect here, an infinite setState/re-render cycle will occur
