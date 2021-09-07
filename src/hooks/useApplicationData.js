@@ -8,7 +8,7 @@ const useApplicationData = () => {
     appointments: {},
     interviewers: {}
   });
-  
+
   // runs only on initial startup
   const getData = () => {
     Promise.all([
@@ -46,9 +46,13 @@ const useApplicationData = () => {
   };
 
   const updateSpots = (apptId, appointments) => {
+    // find the index of the day the updated appointment is on
     const dayIndex = state.days.filter((day) => day.appointments.includes(apptId))[0].id - 1;
+    // appts = an array containing today's appointment slots
     const appts = state.days.filter((day) => day.appointments.includes(apptId))[0].appointments;
-    const spotsRemaining = (5 - appts.filter((appt) => appointments[appt].interview).length);
+    // spotsRemaining = number of days where interview = null
+    const spotsRemaining = (appts.filter((appt) => !appointments[appt].interview).length);
+    
     const daysArray = [...state.days];
     daysArray[dayIndex] = {...daysArray[dayIndex], spots: spotsRemaining};
     setState(prev => ({ ...prev, days: [...daysArray]}));
