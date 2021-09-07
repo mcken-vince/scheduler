@@ -17,7 +17,6 @@ const useApplicationData = () => {
       axios.get('/api/interviewers')
     ])
     .then(all => {
-      console.log(all[0].data)
       setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
     })
   };
@@ -41,7 +40,6 @@ const useApplicationData = () => {
 
     return axios.delete(`/api/appointments/${id}`)
     .then(() => {
-      console.log(state);
       setState(prev => ({ ...prev, appointments }));
       updateSpots(id, appointments);
     })
@@ -53,7 +51,6 @@ const useApplicationData = () => {
     const spotsRemaining = (5 - appts.filter((appt) => appointments[appt].interview).length);
     const daysArray = [...state.days];
     daysArray[dayIndex] = {...daysArray[dayIndex], spots: spotsRemaining};
-    console.log('daysARray:', daysArray);
     setState(prev => ({ ...prev, days: [...daysArray]}));
   };
 
