@@ -2,8 +2,6 @@ import React from "react";
 
 import { render, cleanup, fireEvent } from "@testing-library/react";
 
-import { getByPlaceholderText, getByTestId } from "@testing-library/dom";
-
 import Form from "../Appointment/Form";
 
 afterEach(cleanup);
