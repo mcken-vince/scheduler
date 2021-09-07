@@ -22,11 +22,11 @@ const Form = (props) => {
   const reset = () => {
     setName("");
     setInterviewer(null);
+    setError("");
   };
 
   const cancel = () => {
     reset(); 
-    setError("");
     props.onCancel();
   }
 

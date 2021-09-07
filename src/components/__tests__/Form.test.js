@@ -72,7 +72,7 @@ describe("Form", () => {
 
     fireEvent.click(saveButton);
     expect(getByText(/student name cannot be blank/i)).toBeInTheDocument();
-    
+
     fireEvent.change(input, { 
       target: { value: "Lydia Miller-Jones" } });
   
