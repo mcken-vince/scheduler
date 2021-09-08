@@ -11,8 +11,7 @@ describe('Appointments', () => {
     cy.get('[alt="Sylvia Palmer"]').click();
     cy.contains('Save').click();
     cy.contains('Saving');
-    cy.contains('.appointment__card--show', 'Lydia Miller-Jones')
-    .contains('.appointment__card--show', 'Sylvia Palmer');
+    cy.contains('.appointment__card--show', 'Lydia Miller-Jones', 'Sylvia Palmer');
   });
 
   it('should edit an interview', () => {
