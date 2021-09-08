@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, waitForElement, fireEvent, getByText, getAllByTestId, getByAltText, getByPlaceholderText, queryByText } from "@testing-library/react";
+import { render, cleanup, waitForElement, fireEvent, getByText, getAllByTestId, getByAltText, getByPlaceholderText, queryByText, prettyDOM } from "@testing-library/react";
 
 import Application from "components/Application";
 
@@ -39,6 +39,35 @@ describe("Application", () => {
       queryByText(day, "Monday")
     );
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
+  });
+
+  it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
+    const { container, debug } = render(<Application />);
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+    const appointment = getAllByTestId(container, "appointment")[1];
+
+    fireEvent.click(getByAltText(appointment, "Delete"));
+    expect(getByText(appointment, "Are you sure you want to delete?")).toBeInTheDocument();
+
+    fireEvent.click(getByText(appointment, "Confirm"));
+    await waitForElement(() => getByAltText(appointment, "Add"));
+
+    const day = getAllByTestId(container, 'day').find(day =>
+      queryByText(day, "Monday")
+    );
+    expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
+  });
+
+  it("loads data, edits an interview and keeps the spots remaining for Monday the same", () => {
+
+  });
+
+  it("shows the save error when failing to save an appointment", () => {
+
+  });
+
+  it("shows the delete error when failing to delete an existing appointment", () => {
+
   });
 
 });
