@@ -10,16 +10,25 @@ describe('Appointments', () => {
     cy.get('[data-testid=student-name-input]').type('Lydia Miller-Jones')
     cy.get('[alt="Sylvia Palmer"]').click();
     cy.contains('Save').click();
-    // appointment saved
+    cy.contains('Saving');
     cy.contains('.appointment__card--show', 'Lydia Miller-Jones')
     .contains('.appointment__card--show', 'Sylvia Palmer');
   });
 
   it('should edit an interview', () => {
-
+    cy.get('[alt=Edit]').click({ force: true });
+    cy.get('[alt="Tori Malcolm"]').click();
+    cy.get('[data-testid=student-name-input]').clear().type('Joey Falcone');
+    cy.contains('Save').click();
+    cy.contains('Saving');
+    cy.contains('.appointment__card--show', 'Joey Falcone', 'Tori Malcolm');
   });
 
-  it('should delete an interview', () => {
-
+  it('should cancel an interview', () => {
+    cy.get('[alt=Delete]').click({ force: true });
+    cy.contains('Confirm').click();
+    cy.contains('Deleting');
+    cy.contains('Deleting').should('not.exist');
+    cy.contains('.appointment__card--show', 'Archie Cohen', 'Sylvia Palmer').should('not.exist');
   });
 });
