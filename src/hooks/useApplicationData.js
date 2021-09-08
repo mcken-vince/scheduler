@@ -14,7 +14,7 @@ const useApplicationData = () => {
   });
 
   /**
-   * Fetch data from server, and update the state object. Runs only once on initial startup.
+   * Fetches data from server, and updates the state object. Runs only once on initial startup.
    */
   const getData = () => {
     Promise.all([
@@ -34,7 +34,7 @@ const useApplicationData = () => {
   const setDay = day => setState(prev => ({ ...prev, day }));
   
   /**
-   * Make PUT request to server, and update state with modified data
+   * Makes PUT request to server, and updates state with modified data
    * @param {integer} id appointment id 
    * @param {object} interview object containing interview information
    * @returns {Promise} empty Promise
@@ -51,7 +51,7 @@ const useApplicationData = () => {
   };
   
   /**
-   * Make DELETE request to server, and update state with modified data
+   * Makes DELETE request to server, and updates state with modified data
    * @param {integer} id appointment id 
    * @returns {Promise} empty Promise
    */
@@ -67,7 +67,7 @@ const useApplicationData = () => {
   };
 
   /**
-   * Calculate how many appointments are empty on the same day as the given modified appointment. Update state with current number of spots remaining
+   * Calculates how many appointments are empty on the same day as the given modified appointment. Updates state with current number of spots remaining
    * @param {integer} apptId appointment id 
    * @param {object} appointments containing latest appointments after modifications
    */
