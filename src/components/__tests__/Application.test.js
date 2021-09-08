@@ -42,14 +42,18 @@ describe("Application", () => {
   });
 
   it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
     await waitForElement(() => getByText(container, "Archie Cohen"));
-    const appointment = getAllByTestId(container, "appointment")[1];
+    const appointment = getAllByTestId(container, "appointment").find(
+      appointment => queryByText(appointment, "Archie Cohen")
+    );
 
     fireEvent.click(getByAltText(appointment, "Delete"));
     expect(getByText(appointment, "Are you sure you want to delete?")).toBeInTheDocument();
 
     fireEvent.click(getByText(appointment, "Confirm"));
+    expect(getByText(appointment, "Deleting")).toBeInTheDocument();
+
     await waitForElement(() => getByAltText(appointment, "Add"));
 
     const day = getAllByTestId(container, 'day').find(day =>
