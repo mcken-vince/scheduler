@@ -11,6 +11,8 @@ import Error from './Error';
 import useVisualMode from "hooks/useVisualMode";
 
 const Appointment = (props) => {
+  // All possible modes are here
+  // logic is handled by useVisualMode
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -24,7 +26,12 @@ const Appointment = (props) => {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   )
-
+  
+  /**
+   * [Triggers SAVING transition, calls bookInterview function with given data, and then transitions to SHOW on success or ERROR_SAVE on error]
+   * @param {[string]} name [name of student]
+   * @param {[integer]} interviewer [interviewer id]
+   */
   const save = (name, interviewer) => {
     transition(SAVING);
     const interview = {
@@ -37,6 +44,10 @@ const Appointment = (props) => {
 
   };
 
+  /**
+   * [Triggers DELETING transition, calls cancelInterview with appointment id, and transitions to EMPTY on success or ERROR_DELETE on error]
+   * @param {integer} id [appointment id] 
+   */
   const remove = (id) => {
     transition(DELETING);
     props.cancelInterview(id)

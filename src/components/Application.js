@@ -7,10 +7,10 @@ import useApplicationData from '../hooks/useApplicationData';
 
 
 export default function Application(props) {
-  
   const { state, setDay, bookInterview, cancelInterview } = useApplicationData();
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  // create array of today's appointments as JSX Appointment components
   const appointments = dailyAppointments.map(appointment => {
     return (<Appointment 
       key={appointment.id} 

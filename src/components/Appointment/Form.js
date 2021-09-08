@@ -2,34 +2,31 @@ import React, { useState } from 'react';
 import InterviewerList from 'components/InterviewerList';
 import Button from 'components/Button';
 
-//Edit props:
-  // name: String
-  // interviewers: Array
-  // interviewer: Number
-  // onSave: Function
-  // onCancel: Function
-
-// Create props:
-  // interviewers: Array
-  // onSave: Function
-  // onCancel: Function
-
 const Form = (props) => {
   const [ error, setError ] = useState("");
   const [ name, setName ] = useState(props.name || "");
   const [ interviewer, setInterviewer ] = useState(props.interviewer || null);
 
+  /**
+   * [Resets input field, selected-interviewer, and clears error state]
+   */
   const reset = () => {
     setName("");
     setInterviewer(null);
     setError("");
   };
 
+  /**
+   * [Calls reset and onCancel functions. Solely a function of convenience]
+   */
   const cancel = () => {
     reset(); 
     props.onCancel();
   }
 
+  /**
+   * [Validates input field, if field is empty set error state, if not empty pass form data to onSave function] 
+   */
   const validate = () => {
     if (name === "") {
       setError("Student name cannot be blank");
