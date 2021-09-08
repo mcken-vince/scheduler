@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+/**
+ * Responsible for making all GET/PUT/DELETE requests to server, keeps track of state as it is modified and serves it up to Application 
+ * @returns {object} containing current state data and functions for Application to interact with state
+ */
 const useApplicationData = () => {
   const [state, setState] = useState({
     day: "Monday",
@@ -9,7 +13,9 @@ const useApplicationData = () => {
     interviewers: {}
   });
 
-  // runs only on initial startup
+  /**
+   * Fetch data from server, and update the state object. Runs only once on initial startup.
+   */
   const getData = () => {
     Promise.all([
       axios.get('/api/days'),
@@ -21,8 +27,18 @@ const useApplicationData = () => {
     })
   };
   
+  /**
+   * Sets new value for state.day
+   * @param {string} day string value of day => "Monday"
+   */
   const setDay = day => setState(prev => ({ ...prev, day }));
   
+  /**
+   * Make PUT request to server, and update state with modified data
+   * @param {integer} id appointment id 
+   * @param {object} interview object containing interview information
+   * @returns {Promise} empty Promise
+   */
   const bookInterview = (id, interview) => {
     const appointment = { ...state.appointments[id], interview: { ...interview } };
     const appointments = { ...state.appointments, [id]: appointment };
@@ -34,6 +50,11 @@ const useApplicationData = () => {
     })
   };
   
+  /**
+   * Make DELETE request to server, and update state with modified data
+   * @param {integer} id appointment id 
+   * @returns {Promise} empty Promise
+   */
   const cancelInterview = (id) => {
     const appointment = { ...state.appointments[id], interview : null };
     const appointments = { ...state.appointments, [id]: appointment };
@@ -45,6 +66,11 @@ const useApplicationData = () => {
     })
   };
 
+  /**
+   * Calculate how many appointments are empty on the same day as the given modified appointment. Update state with current number of spots remaining
+   * @param {integer} apptId appointment id 
+   * @param {object} appointments containing latest appointments after modifications
+   */
   const updateSpots = (apptId, appointments) => {
     // find the index of the day the updated appointment is on
     const dayIndex = state.days.filter((day) => day.appointments.includes(apptId))[0].id - 1;
