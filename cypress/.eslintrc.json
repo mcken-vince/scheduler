@@ -1,0 +1,7 @@
+{
+  "eslintConfig": {
+    "extends": [
+      "plugin:cypress/recommended"
+    ]
+  }
+}
