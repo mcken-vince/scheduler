@@ -1,3 +1,10 @@
+
+/**
+ * Transforms state object into an array containing only appointments on a given day
+ * @param {object} state example => state: {day:[string], days: [array], appointments: {object}, interviewers: {object}
+ * @param {string} day string value of day => "Monday"
+ * @returns {array} an array of objects representing appointments taking place on given day
+ */
 const getAppointmentsForDay = (state, day) => {
   const appointmentsArray = [];
   const days = [...state.days];
@@ -11,6 +18,12 @@ const getAppointmentsForDay = (state, day) => {
   return appointmentsArray;
 };
 
+/**
+ * Combines given interview information with interviewer information from state before handing off to Appointment component
+ * @param {object} state example => state: {day:[string], days: [array], appointments: {object}, interviewers: {object}
+ * @param {object} interview contains information about interview]
+ * @returns {object} containing full details of appointment, ready to be handed to Appointment component
+ */
 const getInterview = (state, interview) => {
   // short-circuit if there is no interview scheduled
   if (!interview) return null;
@@ -34,14 +47,20 @@ const getInterview = (state, interview) => {
   return result;
 };
 
+/**
+ * 
+ * @param {object} state example => state: {day:[string], days: [array], appointments: {object}, interviewers: {object}
+ * @param {string} day string value of day => "Monday"
+ * @returns {array} containing array with complete information of all interviewers scheduled on given day
+ */
 const getInterviewersForDay = (state, day) => {
   const interviewersArray = [];
   const days = [...state.days];
   const interviewers = { ...state.interviewers };
   const today = days.filter((d) => d.name === day);
-  // if requested day is in appointments, return all the appointments for today
+  // if there are interviewers today, pass the array to todaysInterviewers
   const todaysInterviewers = today[0] && today[0].interviewers;
-  // if there are appointments, push them to appointmentsArray
+  // map through todaysInterviewers ids and use them to get interviewers full information from state.interviewers
   todaysInterviewers && todaysInterviewers.map((i => interviewersArray.push(interviewers[i])));
 
   return interviewersArray;

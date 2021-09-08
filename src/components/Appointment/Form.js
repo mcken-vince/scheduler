@@ -8,7 +8,7 @@ const Form = (props) => {
   const [ interviewer, setInterviewer ] = useState(props.interviewer || null);
 
   /**
-   * [Resets input field, selected-interviewer, and clears error state]
+   * Resets input field, selected-interviewer, and clears error state
    */
   const reset = () => {
     setName("");
@@ -17,7 +17,7 @@ const Form = (props) => {
   };
 
   /**
-   * [Calls reset and onCancel functions. Solely a function of convenience]
+   * Calls reset and onCancel functions. Solely a function of convenience
    */
   const cancel = () => {
     reset(); 
@@ -25,7 +25,7 @@ const Form = (props) => {
   }
 
   /**
-   * [Validates input field, if field is empty set error state, if not empty pass form data to onSave function] 
+   * Validates input field, if field is empty set error state, if not empty pass form data to onSave function
    */
   const validate = () => {
     if (name === "") {
@@ -49,9 +49,6 @@ const Form = (props) => {
             placeholder="Enter Student Name"
             value={name ? name : ""}
             onChange={e => setName(e.target.value)}
-          /*
-            This must be a controlled component
-          */
           />
           <section className="appointment__validation">{error}</section>
         </form>

@@ -28,9 +28,9 @@ const Appointment = (props) => {
   )
   
   /**
-   * [Triggers SAVING transition, calls bookInterview function with given data, and then transitions to SHOW on success or ERROR_SAVE on error]
-   * @param {[string]} name [name of student]
-   * @param {[integer]} interviewer [interviewer id]
+   * Triggers SAVING transition, calls bookInterview function with given data, and then transitions to SHOW on success or ERROR_SAVE on error
+   * @param {string} name name of student
+   * @param {integer} interviewer interviewer id
    */
   const save = (name, interviewer) => {
     transition(SAVING);
@@ -45,8 +45,8 @@ const Appointment = (props) => {
   };
 
   /**
-   * [Triggers DELETING transition, calls cancelInterview with appointment id, and transitions to EMPTY on success or ERROR_DELETE on error]
-   * @param {integer} id [appointment id] 
+   * Triggers DELETING transition, calls cancelInterview with appointment id, and transitions to EMPTY on success or ERROR_DELETE on error
+   * @param {integer} id appointment id 
    */
   const remove = (id) => {
     transition(DELETING);
