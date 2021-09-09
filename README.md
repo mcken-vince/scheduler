@@ -11,7 +11,7 @@ Project to practice working with React, leveraging more complex hooks and manipu
 Server is deployed on a free Heroku account, so will need a minute to boot up after request is made.
 Give it a few seconds and refresh until data loads.
 
-![""]()
+!["Scheduler demo GIF"](https://github.com/mcken-vince/scheduler/blob/master/resources/Scheduler-demo.gif)
 
 ## Make sure you are using Node v10.16.1, not compatible with newer versions
 ```
