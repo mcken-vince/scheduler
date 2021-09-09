@@ -6,9 +6,12 @@ Project to practice working with React, leveraging more complex hooks and manipu
 - Used CircleCI
 - Production branch auto-deployed on Netlify, with server deployed on Heroku
 
-### DEPLOYED App LINK: https://613933e5057f2600e3345377--boring-villani-f82285.netlify.app/
+### Deployed App Link:
+### https://613933e5057f2600e3345377--boring-villani-f82285.netlify.app/
 Server is deployed on a free Heroku account, so will need a minute to boot up after request is made.
 Give it a few seconds and refresh until data loads.
+
+![""]()
 
 ## Make sure you are using Node v10.16.1, not compatible with newer versions
 ```
