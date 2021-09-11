@@ -36,6 +36,17 @@ describe("Form", () => {
     expect(onSave).not.toHaveBeenCalled();
   });
   
+  it("validates that an interviewer has been selected", () => {
+    const onSave = jest.fn()
+    const { getByText } = render(
+      <Form interviewers={interviewers} name="Lydia Miller-Jones" onSave={onSave} />);
+    fireEvent.click(getByText("Save"));
+
+    expect(getByText(/an interviewer must be selected to book an interview/i)).toBeInTheDocument();
+    expect(onSave).not.toHaveBeenCalled();
+    
+  })
+
   it("can successfully save after trying to submit an empty student name", () => {
     const onSave = jest.fn();
     const { queryByText, getByText, getByPlaceholderText } = render(
